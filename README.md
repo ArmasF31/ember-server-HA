@@ -31,3 +31,34 @@ All commands have a service UUID of `fc543622236c4c948fa9944a3e5353fa`
 * [Firmware & hardware versions](./docs/push-events.md)
 
 
+
+## Home Assistant custom integration: Ember Mug Live
+
+This repository now includes a Home Assistant custom integration under `custom_components/ember_mug`.
+
+### Features
+
+- Reads Ember Mug BLE values using the protocol docs in this repo:
+  - Current temp (`fc540002-...`)
+  - Target temp (`fc540003-...`)
+  - Battery + charging (`fc540007-...`)
+  - Liquid state (`fc540008-...`)
+  - Liquid level (`fc540005-...`)
+- Exposes those values as HA sensors.
+- Hosts a tiny realtime page via Home Assistant HTTP at:
+  - `/ember_mug` (human page)
+  - `/api/ember_mug/status` (JSON snapshot)
+  - `/api/ember_mug/events` (SSE realtime stream)
+
+### Install
+
+1. Copy `custom_components/ember_mug` into your Home Assistant `config/custom_components/` directory.
+2. Restart Home Assistant.
+3. Add integration **Ember Mug Live** from *Settings → Devices & Services*.
+4. Enter your mug BLE MAC address (e.g. `AA:BB:CC:DD:EE:FF`).
+
+### Notes
+
+- BLE range and adapter support apply (Home Assistant host needs BLE access).
+- The integration polls by default every 15s (configurable via options).
+- The realtime webpage updates from SSE messages generated after coordinator refreshes.
