@@ -1,7 +1,7 @@
 {
   "domain": "ember_mug",
   "name": "Ember Mug Live",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "documentation": "https://github.com/orlopau/ember-mug",
   "issue_tracker": "https://github.com/orlopau/ember-mug/issues",
   "config_flow": true,
