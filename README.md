@@ -58,27 +58,6 @@ This repository now includes a Home Assistant custom integration under `custom_c
 4. Select an auto-discovered Ember device (or choose manual entry and input MAC address).
 5. Choose device type: **Mug** or **Tumbler**.
 
-
-### Force-override update (no manual merge)
-
-If you hit merge conflicts and want to **replace** your local integration with the repo version, run:
-
-```bash
-# from your Home Assistant config repo
-git checkout --theirs custom_components/ember_mug
-git add custom_components/ember_mug
-git commit -m "Restore ember_mug integration from upstream"
-```
-
-Or if you are copying files directly, remove old folder then copy fresh:
-
-```bash
-rm -rf /config/custom_components/ember_mug
-cp -R /path/to/this/repo/custom_components/ember_mug /config/custom_components/
-```
-
-Restart Home Assistant after replacing files.
-
 ### Notes
 
 - BLE range and adapter support apply (Home Assistant host needs BLE access).

@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-import logging
 
+from bleak import BleakScanner
 import voluptuous as vol
 
 from homeassistant import config_entries
@@ -22,23 +22,10 @@ from .const import (
     SERVICE_UUID,
 )
 
-_LOGGER = logging.getLogger(__name__)
-
 
 async def discover_ember_devices() -> list[tuple[str, str]]:
     """Return discovered Ember-like BLE devices as (address, label)."""
-    try:
-        from bleak import BleakScanner
-    except Exception:  # pragma: no cover - runtime env/package issue
-        _LOGGER.warning("Bleak is unavailable during config flow discovery; falling back to manual setup")
-        return []
-
-    try:
-        devices = await BleakScanner.discover(timeout=5.0)
-    except Exception as err:  # pragma: no cover - adapter/dbus/platform specific
-        _LOGGER.warning("Ember discovery failed, continuing with manual setup only: %s", err)
-        return []
-
+    devices = await BleakScanner.discover(timeout=5.0)
     found: list[tuple[str, str]] = []
 
     for device in devices:
