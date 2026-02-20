@@ -55,10 +55,13 @@ This repository now includes a Home Assistant custom integration under `custom_c
 1. Copy `custom_components/ember_mug` into your Home Assistant `config/custom_components/` directory.
 2. Restart Home Assistant.
 3. Add integration **Ember Mug Live** from *Settings → Devices & Services*.
-4. Enter your mug BLE MAC address (e.g. `AA:BB:CC:DD:EE:FF`).
+4. Select an auto-discovered Ember device (or choose manual entry and input MAC address).
+5. Choose device type: **Mug** or **Tumbler**.
 
 ### Notes
 
 - BLE range and adapter support apply (Home Assistant host needs BLE access).
 - The integration polls by default every 15s (configurable via options).
+- Automatic BLE discovery is supported during setup.
+- Device type can be switched between Mug and Tumbler in integration options.
 - The realtime webpage updates from SSE messages generated after coordinator refreshes.

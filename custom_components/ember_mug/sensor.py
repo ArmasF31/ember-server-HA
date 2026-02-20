@@ -11,7 +11,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN
+from .const import CONF_DEVICE_TYPE, DEFAULT_DEVICE_TYPE, DEVICE_TYPE_TUMBLER, DOMAIN
 from .coordinator import EmberMugCoordinator
 
 
@@ -85,11 +85,15 @@ class EmberMugSensor(CoordinatorEntity[EmberMugCoordinator], SensorEntity):
         self.entity_description = description
         self._attr_unique_id = f"{entry.entry_id}_{description.key}"
         self._attr_has_entity_name = True
+
+        device_type = entry.options.get(CONF_DEVICE_TYPE, entry.data.get(CONF_DEVICE_TYPE, DEFAULT_DEVICE_TYPE))
+        model = "Ember Tumbler" if device_type == DEVICE_TYPE_TUMBLER else "Ember Mug"
+
         self._attr_device_info = {
             "identifiers": {(DOMAIN, entry.entry_id)},
             "name": entry.title,
             "manufacturer": "Ember",
-            "model": "Ember Mug",
+            "model": model,
         }
 
     @property
